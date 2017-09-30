@@ -131,13 +131,13 @@ function dril_ajax_count(o_nazev, o_id, o_href) {
 if ( lookup_dril ) {
   // div pro dril
   $('#dlazdice').prepend(
-    '<div class="row" style="padding-left: 2em;"><div class="column"><div class="dlazdice" style="text-align: left; "><div id="dril_dlazdice"></div></div></div></div>'
+    '<div class="row" style="padding-left: 2em;"><div class="column"><div class="dlazdice" style="text-align: left; "><div id="dril_dlazdice"><img src="/pics/design/pracuji.gif"></div></div></div></div>'
   );
 
   // zjistit oblasti drilu
   $.get('/auth/dril/', {},
       function(data) {
-        var dril_html = data;
+        $('#dril_dlazdice').html('');
         // vytahnout vsechny oblasti ke drilovani
         var pole = data.match(/(href=".*oblast_id=\d+.*<b>.*?<\/b>)/g);
         // pres vsechny oblasti zjistit nazev, id a pocet slovicek ke drilovani a vsechno vykreslit
