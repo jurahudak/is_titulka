@@ -160,10 +160,14 @@ if ( have_no_life ) {
 } else {
   if ( tile_long_life ) {
     // zkrátit
-    $('#zivot').height( $('#dlazdice').height() + $('#vyhledavani').height() );
+    recount_life_height();
     // scrollbary
     $('#zivot').css( 'overflow', 'auto' );
   }
+}
+
+function recount_life_height() {
+  $('#zivot').height( $('#dlazdice').height() + $('#vyhledavani').height() );
 }
 
 // vim: tabstop=2 shiftwidth=2 softtabstop=2 expandtab
