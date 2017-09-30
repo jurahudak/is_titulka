@@ -2,6 +2,7 @@
 // @name        is_titulka
 // @namespace   is_titulka
 // @include     https://is.*.cz/auth/
+// @include     https://is.*.cz/auth/?*
 // @version     1
 // @grant       none
 // ==/UserScript==
@@ -13,6 +14,7 @@
    * mazání/skrytí zbývajících dlaždic
    * zobrazení oblastí drilu a počtu slovíček ke drilování
    * zkrácení života na délku dlaždic
+   * zobrazeni diskusí s nenulovým počtem nových příspěvků
 */
 
 // zde uvést nadpisy dlaždic ve vytouženém pořadí
@@ -38,6 +40,9 @@ var tiles_delete = true;
 // dohledávat oblasti drilu
 var lookup_dril = true;
 
+// zobrazovat nove diskuse
+var lookup_discussion = true;
+
 // bez zivota (na MU)
 var have_no_life = false;
 
@@ -50,9 +55,11 @@ var tile_long_life = true;
 var _messages = {
   'cs' : {
           "TILE_MISSING": "Chybí nějaká dlaždice? Možná je potřeba <b>vypnout</b> tento užasný user-script pro titulku nebo <b>změnit</b> jeho nastavení. ;-)",
+          "DISCUSSIONS": "Diskusní fóra",
          },
   'en' : {
           "TILE_MISSING": "An tile is missing? Maybe it's necessary to <b>turn off</b> this awesome user-script for the Title page or <b>change</b> its settings. ;-)",
+          "DISCUSSIONS": "Discussions groups",
          },
 };
 _messages['sk'] = {};
@@ -63,6 +70,9 @@ for ( var msg in _messages['cs'] ) {
     }
 }
 
+function _m(m) {
+  return _messages[is.session.get('lang')][m];
+}
 
 // záměna dvou dlaždice dle názvu
 function dlazdice_replace(nazev1, nazev2) {
@@ -151,6 +161,37 @@ if ( lookup_dril ) {
   );
 }
 
+// pokud uzivatel chce zobrazit souhrn novych z diskusi
+if ( lookup_discussion ) {
+  // vlozit jako dlazdici
+/*  $('#dlazdice').prepend(
+    '<div class="row" style="padding-left: 2em;"><div class="column"><div class="dlazdice" style="text-align: left; overflow: auto;"><div id="diskuse_dlazdice"></div></div></div></div>'
+  );
+*/
+  // vlozit pred Zivot
+  $('.zivot_column').prepend('<div><div class="nazev" style="font-size: 1.5rem; margin-bottom: 1em;"><a href="/auth/diskuse/">'+_m('DISCUSSIONS')+'</a></div><div style="margin-bottom: 2em; height: 15em; overflow: auto;" id="diskuse_dlazdice"><img src="/pics/design/pracuji.gif"></div><hr /></div>');
+
+  // zjistit diskuse
+  $.get('/auth/diskuse/', {},
+      function(data) {
+        $('#diskuse_dlazdice').html('');
+        var pole = data.match(/<li>(.*?\d+.*?(:?nov|new mess).*?)<\/li>/ig);
+        for ( var i in pole ) {
+          var nazev = (pole[i].match(/<b>(.*?)<\/b>/i) || ['',''])[1];
+          var url = //'/auth'+(
+              (pole[i].match(/href="([^"]+)"/i) || ['',''])[1];//.match(/(\/diskuse\/.*/))[1];
+          url = url.replace('../','/auth/');
+          var pocet = parseInt( (pole[i].match(/<font[^>]*>.*?(\d+)/i) || ['',0])[1] );
+          // pouze ty diskuse s nenulovym poctem novych
+          if ( pocet > 0 ) {
+            $('#diskuse_dlazdice').append( '<a href="'+url+'">'+nazev+'</a> <b>('+pocet+')</b><br />' );
+          }
+        }
+        recount_life_height();
+      }
+  );
+}
+
 // disclaimer na závěr
 $('#dlazdice').append('<div class="row"><div class="column" style="text-align: center;">' + _messages[is.session.get('lang')]['TILE_MISSING'] + '</div></div>');
 
@@ -167,7 +208,7 @@ if ( have_no_life ) {
 }
 
 function recount_life_height() {
-  $('#zivot').height( $('#dlazdice').height() + $('#vyhledavani').height() );
+  $('#zivot').height( $('#dlazdice').height() + $('#vyhledavani').height() - $('#diskuse_dlazdice').height() );
 }
 
 // vim: tabstop=2 shiftwidth=2 softtabstop=2 expandtab

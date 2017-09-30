@@ -9,6 +9,7 @@ Grease/Tamper/Violent-monkey/Guerilla-scripting skript pro úpravu vzhledu titul
 * po změně pořadí zbývající dlaždice ze stránky odstranit
 * zobrazení oblastí v Drilu a počet slovíček ke drilování
 * zkrácení "Života" na výšku dlaždic s vyhledáváním
+* zobrazování disksních fór s nenulovým počtem nových příspěvků
 
 Skript byl funkční ve Firefoxu (55.0.3, Greasemonkey), Palemoon (27.4.2, Guerilla scripting), Chrome (61.0.3163.79, Tampermonkey) a Opera (47.0.2631.55, Violentmonkey), všechny Archlinux x86-64.
 
@@ -88,10 +89,19 @@ ponechat výchozí délku
 
 	var tile_long_life = false;
 
+### Zobrazování diskusních fór s nenulovým počtem nových příspěvků
 
+Zobrazovat disk. fóra
+
+	var lookup_discussion = true;
+
+nezobrazovat disk. fóra
+
+	var lookup_discussion = false;
 
 
 ## Co zlepšit
 
 * pro oblasti Drilu využívat lokální úložiště (localStorage) a ušetřit tak při každém zobrazení AJAXový GET na titlku Drilu, ale je potřeba nějak zajistit aktualizaci při aktivaci nové nebo deaktivaci oblasti, resp. periodicky aktualizovat při zobrazení
+* diskusní fóra umožnit volitelně zobrazit jako dlaždici před/za drilem
 
