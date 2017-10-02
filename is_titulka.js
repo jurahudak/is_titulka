@@ -43,7 +43,6 @@ var config = {
     'tiles_link_remove':{
       'cs': {
           'Lidé': [ 'Skupiny osob', ],
-console.log( 'get config ajax' )2
           'Systém': [ 'Podnětovna pro SO' ],
       },
     },
