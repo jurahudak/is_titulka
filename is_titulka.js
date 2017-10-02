@@ -4,7 +4,7 @@
 // @include     https://is.*.cz/auth/
 // @include     https://is.*.cz/auth/*
 // @include     https://is.*.cz/auth/?*
-// @version     3.1
+// @version     3.1.1
 // @grant       none
 // ==/UserScript==
 
@@ -217,7 +217,6 @@ function run_me(cfg) {
           $('#dril_dlazdice').html('');
           // vytahnout vsechny oblasti ke drilovani
           var pole = data.match(/(href=".*oblast_id=\d+.*<b>.*?<\/b>)/g);
-          pole = [];
           if ( pole.length > 0 ) {
             // pres vsechny oblasti zjistit nazev, id a pocet slovicek ke drilovani a vsechno vykreslit
             for ( var i in pole ) {
