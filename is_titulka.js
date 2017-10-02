@@ -4,7 +4,7 @@
 // @include     https://is.*.cz/auth/
 // @include     https://is.*.cz/auth/*
 // @include     https://is.*.cz/auth/?*
-// @version     1
+// @version     3
 // @grant       none
 // ==/UserScript==
 
@@ -173,6 +173,8 @@ function recount_life_height() {
 
 // hlavni funkce
 function run_me(cfg) {
+  var uco = is.session.get('uco');
+  var lang = is.session.get('lang');
 
   // dlaždice dle jazyka
   var tiles_my_order = cfg.tiles_my_order[is.session.get('lang')];
@@ -180,6 +182,26 @@ function run_me(cfg) {
   // přerovnat (a případně promazat) dlaždice
   if ( tiles_my_order !== undefined && tiles_my_order.length > 0 ) {
     dlazdice_reorder(tiles_my_order, cfg.tiles_delete);
+  }
+
+  // odstranit
+  if ( cfg.tiles_link_remove[lang] ) {
+    // pres nazvy
+    for ( var nazev in cfg.tiles_link_remove[lang] ) {
+      // pres mazane nazvy odkazu
+      for ( var j=0; j<cfg.tiles_link_remove[lang][nazev].length; j++ ) {
+        $('.dlazdice').has('a:contains("'+nazev+'")').find('.odkazy > li').filter(function () {return $(this).children('a').text() === cfg.tiles_link_remove[lang][nazev][j];}).remove();
+      }
+    }
+  }
+  // pridat
+  if ( cfg.tiles_link_add[lang] ) {
+    // pres nazvy
+    for ( var nazev in cfg.tiles_link_add[lang] ) {
+      $('.dlazdice .row').has('.nazev a:contains("' + nazev + '")').find('.odkazy').append(
+        cfg.tiles_link_add[lang][nazev].map(function(item){ return '<li>'+item.replace('%uco%', uco)+'</li>'; })
+      );
+    }
   }
 
   // pokud uzivatel chce zobrazovat oblasti drilu na titulce
