@@ -81,29 +81,30 @@ if ( config.config_url !== undefined ) {
 
 /* definice funkcí a jejich spouštění ... za tímto komentařem už asi nic nechcete měnit ;-) */
 
-// varování pro chybějící dlaždice
-var _messages = {
-  'cs' : {
+function _m(m) {
+  let lang = is.session.get('lang');
+
+  var _messages = {
+    'cs' : {
           "TILE_MISSING": "Chybí nějaká dlaždice? Možná je potřeba <b>vypnout</b> tento užasný user-script pro titulku nebo <b>změnit</b> jeho nastavení. ;-)",
           "DISCUSSIONS": "Diskusní fóra",
           "WEEK_OF_YEAR": "Kalendářní týden",
          },
-  'en' : {
+    'en' : {
           "TILE_MISSING": "An tile is missing? Maybe it's necessary to <b>turn off</b> this awesome user-script for the Title page or <b>change</b> its settings. ;-)",
           "DISCUSSIONS": "Discussions groups",
           "WEEK_OF_YEAR": "week of year",
          },
-};
-_messages['sk'] = {};
-// okopírovat české texty do slovenských, nejsou-li uvedeny
-for ( var msg in _messages['cs'] ) {
+  };
+  _messages['sk'] = {};
+  // okopírovat české texty do slovenských, nejsou-li uvedeny
+  for ( var msg in _messages['cs'] ) {
     if ( !(msg in _messages['sk']) ) {
         _messages['sk'][msg] = _messages['cs'][msg];
     }
-}
+  }
 
-function _m(m) {
-  return _messages[is.session.get('lang')][m];
+  return _messages[lang][m];
 }
 
 // záměna dvou dlaždice dle názvu
