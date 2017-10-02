@@ -20,7 +20,8 @@
 
 var config = {
   // externí nastavení - odkomentovat, uvést vlastní url a zakomentovat stat. nastavení
-  'config_url': 'https://is.muni.cz/auth/www/60505/is_titulka.conf.js?Aab',
+  // url _musí_ být na ISu
+  'config_url': '/auth/www/'+is.session.get('uco')+'/is_titulka.conf.js',
   // statické nastavení - odkomentovat, uvést nstavení a zakomentovat url nastavení
 /*
     // zde uvést nadpisy dlaždic ve vytouženém pořadí pro používaný jazyk
