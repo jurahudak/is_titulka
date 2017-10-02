@@ -9,7 +9,8 @@ Grease/Tamper/Violent-monkey/Guerilla-scripting skript pro úpravu vzhledu titul
 * po změně pořadí zbývající dlaždice ze stránky odstranit
 * zobrazení oblastí v Drilu a počet slovíček ke drilování
 * zkrácení "Života" na výšku dlaždic s vyhledáváním
-* zobrazování disksních fór s nenulovým počtem nových příspěvků
+* zobrazování diskusních fór s nenulovým počtem nových příspěvků
+* zobrazit číslo týdne v patičce
 
 Skript byl funkční ve Firefoxu (55.0.3, Greasemonkey), Palemoon (27.4.2, Guerilla scripting), Chrome (61.0.3163.79, Tampermonkey) a Opera (47.0.2631.55, Violentmonkey), všechny Archlinux x86-64.
 
