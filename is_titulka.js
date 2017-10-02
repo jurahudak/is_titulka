@@ -141,7 +141,7 @@ function dlazdice_reorder(mp, mazat) {
       });
     if ( j < stavajici_poradi.length ) {
       for ( var i = j; i < stavajici_poradi.length; i++ ) {
-        $('.dlazdice .row .nazev a:contains(' + stavajici_poradi[i] + ')').parent().parent().parent().parent().remove();
+        $('.dlazdice').has('.row .nazev a:contains('+stavajici_poradi[i]+')').remove();
       }
     }
   }
