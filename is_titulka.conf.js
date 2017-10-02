@@ -16,6 +16,17 @@ var config = {
           'Soubory','Pošta','Nástroje',
           'Publikácie','Karty','Študijné',
          ],
+  }, // tiles_my_order
+  'tiles_link_remove':{
+      'cs': {
+          'Lidé': [ 'Skupiny osob', ],
+          'Systém': [ 'Podnětovna pro SO' ],
+      },
+  },
+  'tiles_link_add':{
+      'cs': {
+          'Lidé': [ '<a href="/auth/osoba/%uco%">Moje os. stránka</a>' ],
+      },
   },
   'tiles_delete': true,
   'lookup_dril': true,
