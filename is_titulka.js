@@ -4,7 +4,7 @@
 // @include     https://is.*.cz/auth/
 // @include     https://is.*.cz/auth/*
 // @include     https://is.*.cz/auth/?*
-// @version     3
+// @version     3.1
 // @grant       none
 // ==/UserScript==
 
@@ -208,7 +208,7 @@ function run_me(cfg) {
   if ( cfg.lookup_dril ) {
     // div pro dril
     $('#dlazdice').prepend(
-      '<div class="row" style="padding-left: 2em;"><div class="column"><div class="dlazdice" style="text-align: left; "><div id="dril_dlazdice"><img src="/pics/design/pracuji.gif"></div></div></div></div>'
+      '<div id="row_dril" class="row" style="padding-left: 2em;"><div class="column"><div class="dlazdice" style="text-align: left; "><div id="dril_dlazdice"><img src="/pics/design/pracuji.gif"></div></div></div></div>'
     );
 
     // zjistit oblasti drilu
@@ -217,12 +217,17 @@ function run_me(cfg) {
           $('#dril_dlazdice').html('');
           // vytahnout vsechny oblasti ke drilovani
           var pole = data.match(/(href=".*oblast_id=\d+.*<b>.*?<\/b>)/g);
-          // pres vsechny oblasti zjistit nazev, id a pocet slovicek ke drilovani a vsechno vykreslit
-          for ( var i in pole ) {
-            var oblast_href = pole[i].match(/href="(.*)"/)[1];
-            var oblast_id = pole[i].match(/oblast_id=(\d+)/)[1];
-            var oblast_nazev = pole[i].match(/<b>(.*)<\/b>/)[1];
-            dril_ajax_count(oblast_nazev, oblast_id, oblast_href);
+          pole = [];
+          if ( pole.length > 0 ) {
+            // pres vsechny oblasti zjistit nazev, id a pocet slovicek ke drilovani a vsechno vykreslit
+            for ( var i in pole ) {
+              var oblast_href = pole[i].match(/href="(.*)"/)[1];
+              var oblast_id = pole[i].match(/oblast_id=(\d+)/)[1];
+              var oblast_nazev = pole[i].match(/<b>(.*)<\/b>/)[1];
+              dril_ajax_count(oblast_nazev, oblast_id, oblast_href);
+            }
+          } else {
+            $('#row_dril').remove();
           }
         }
     );
