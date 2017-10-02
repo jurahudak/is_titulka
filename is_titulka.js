@@ -23,7 +23,8 @@ var config = {
   // url _musí_ být na ISu
   'config_url': '/auth/www/'+is.session.get('uco')+'/is_titulka.conf.js',
   // statické nastavení - odkomentovat, uvést nstavení a zakomentovat url nastavení
-/*
+
+/* // staticka konfigurace
     // zde uvést nadpisy dlaždic ve vytouženém pořadí pro používaný jazyk
     'tiles_my_order': {
       "cs":['Vývoj','Systém','Lidé',
@@ -39,6 +40,18 @@ var config = {
           'Publikácie','Karty','Študijné',
          ],
      },
+    'tiles_link_remove':{
+      'cs': {
+          'Lidé': [ 'Skupiny osob', ],
+console.log( 'get config ajax' )2
+          'Systém': [ 'Podnětovna pro SO' ],
+      },
+    },
+    'tiles_link_add':{
+      'cs': {
+          'Lidé': [ '<a href="/auth/osoba/%uco%">Moje os. stránka</a>' ],
+      },
+    },
 
     // nastavit na true, pokud uživatel chce uplně vymazat ostatní dlaždice, ktere nejsou uvedeny v tiles_my_order
     'tiles_delete': true,
@@ -57,7 +70,7 @@ var config = {
 
     // číslo týdne
     'have_week_number': true,
-*/
+*/ // staticka konfigurace
 };
 
 if ( config.config_url !== undefined ) {
