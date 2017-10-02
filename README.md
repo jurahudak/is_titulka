@@ -100,6 +100,15 @@ nezobrazovat disk. fóra
 
 	var lookup_discussion = false;
 
+### Zobrazování čísla týdne v patičce
+
+Zobrazovat číslo týdne mezi datem a časem v patičce
+
+	var have_week_number = true;
+
+nezobrazovat číslo týdne
+
+	var have_week_number = false;
 
 ## Co zlepšit
 
