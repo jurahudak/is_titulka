@@ -61,6 +61,12 @@ var config = {
     // zobrazovat nove diskuse
     'lookup_discussion': true,
 
+    'discussion_ignore': [
+      'Ptejte se Studentských poradců',
+      'Záhrobní Plkárna 3.0',
+      'Předměty',
+    ],
+
     // bez zivota (na MU)
     'have_no_life': false,
 
@@ -248,6 +254,9 @@ function run_me(cfg) {
           var pole = data.match(/<li>(.*?\d+.*?(:?nov|new mess).*?)<\/li>/ig);
           for ( var i in pole ) {
             var nazev = (pole[i].match(/<b>(.*?)<\/b>/i) || ['',''])[1];
+            if ( cfg.discussion_ignore !== undefined && cfg.discussion_ignore.indexOf( nazev ) >= 0 ) {
+              continue;
+            }
             var url = //'/auth'+(
                 (pole[i].match(/href="([^"]+)"/i) || ['',''])[1];//.match(/(\/diskuse\/.*/))[1];
             url = url.replace('../','/auth/');
