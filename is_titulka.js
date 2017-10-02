@@ -15,6 +15,7 @@
    * zobrazení oblastí drilu a počtu slovíček ke drilování
    * zkrácení života na délku dlaždic
    * zobrazeni diskusí s nenulovým počtem nových příspěvků
+   * zobrazit číslo týdne mezi datem a časem v patičce
 */
 
 // zde uvést nadpisy dlaždic ve vytouženém pořadí
@@ -48,6 +49,9 @@ var have_no_life = false;
 
 // zivot stejne dlouhy jako dlazdice
 var tile_long_life = true;
+
+// číslo týdne
+var have_week_number = true;
 
 /* definice funkcí a jejich spouštění ... za tímto komentařem už asi nic nechcete měnit ;-) */
 
@@ -210,5 +214,14 @@ if ( have_no_life ) {
 function recount_life_height() {
   $('#zivot').height( $('#dlazdice').height() + $('#vyhledavani').height() - $('#diskuse_dlazdice').height() );
 }
+
+if ( have_week_number ) {
+  Date.prototype.getWeek = function() {
+    var onejan = new Date(this.getFullYear(),0,1);
+    return Math.ceil((((this - onejan) / 86400000) + onejan.getDay()+1)/7);
+  };
+  $('.footer_datum span').prepend('('+(new Date()).getWeek()+'.) ');
+}
+
 
 // vim: tabstop=2 shiftwidth=2 softtabstop=2 expandtab
