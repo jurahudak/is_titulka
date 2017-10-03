@@ -181,6 +181,27 @@ function recount_life_height() {
   $('#zivot').height( $('#dlazdice').height() + $('#vyhledavani').height() - $('#diskuse_dlazdice').height() );
 }
 
+function dril_load_ajax() {
+    $.get('/auth/dril/', {},
+        function(data) {
+          $('#dril_dlazdice').html('');
+          // vytahnout vsechny oblasti ke drilovani
+          var pole = data.match(/(href=".*oblast_id=\d+.*<b>.*?<\/b>)/g);
+          if ( pole.length > 0 ) {
+            localStorage.setItem('is_titulka.dril.oblasti', JSON.stringify({'timestamp':(new Date).getTime(), 'oblasti':pole}));
+            // pres vsechny oblasti zjistit nazev, id a pocet slovicek ke drilovani a vsechno vykreslit
+            for ( var i in pole ) {
+              var oblast_href = pole[i].match(/href="(.*)"/)[1];
+              var oblast_id = pole[i].match(/oblast_id=(\d+)/)[1];
+              var oblast_nazev = pole[i].match(/<b>(.*)<\/b>/)[1];
+              dril_ajax_count(oblast_nazev, oblast_id, oblast_href);
+            }
+          } else {
+            $('#row_dril').remove();
+          }
+        }
+    ); // get
+}
 
 // hlavni funkce
 function run_me(cfg) {
@@ -222,25 +243,30 @@ function run_me(cfg) {
       '<div id="row_dril" class="row" style="padding-left: 2em;"><div class="column"><div class="dlazdice" style="text-align: left; "><div id="dril_dlazdice"><img src="/pics/design/pracuji.gif"></div></div></div></div>'
     );
 
+var provest_ajax = true;
+var lsdata = {};
+
+// mame v localStorage a neni jeste prilis stary?
+if ( localStorage.getItem('is_titulka.dril.oblasti') !== null ) {
+  lsdata = JSON.parse(localStorage.getItem('is_titulka.dril.oblasti'));
+  // data starsi nez 7 dnu
+  if ( lsdata.timestamp + 7*86400 > (new Date).getTime() ) {
+    provest_ajax = false;
+  }
+}
+if ( provest_ajax ) {
     // zjistit oblasti drilu
-    $.get('/auth/dril/', {},
-        function(data) {
-          $('#dril_dlazdice').html('');
-          // vytahnout vsechny oblasti ke drilovani
-          var pole = data.match(/(href=".*oblast_id=\d+.*<b>.*?<\/b>)/g);
-          if ( pole.length > 0 ) {
-            // pres vsechny oblasti zjistit nazev, id a pocet slovicek ke drilovani a vsechno vykreslit
-            for ( var i in pole ) {
-              var oblast_href = pole[i].match(/href="(.*)"/)[1];
-              var oblast_id = pole[i].match(/oblast_id=(\d+)/)[1];
-              var oblast_nazev = pole[i].match(/<b>(.*)<\/b>/)[1];
-              dril_ajax_count(oblast_nazev, oblast_id, oblast_href);
-            }
-          } else {
-            $('#row_dril').remove();
-          }
-        }
-    );
+    dril_load_ajax();
+} else {
+  var pole = lsdata.oblasti;
+  $('#dril_dlazdice').html(''); // zrusit tocici kolecko ajaxu
+  for ( var i in pole ) {
+    var oblast_href = pole[i].match(/href="(.*)"/)[1];
+    var oblast_id = pole[i].match(/oblast_id=(\d+)/)[1];
+    var oblast_nazev = pole[i].match(/<b>(.*)<\/b>/)[1];
+    dril_ajax_count(oblast_nazev, oblast_id, oblast_href);
+  }
+}
   }
 
   // pokud uzivatel chce zobrazit souhrn novych z diskusi
@@ -278,7 +304,13 @@ function run_me(cfg) {
   }
 
   // disclaimer na závěr
-  $('#dlazdice').append('<div class="row"><div class="column" style="text-align: center;">' + _m('TILE_MISSING') + '</div></div>');
+  $('#dlazdice').append('<div class="row"><div class="column" style="text-align: center;">' + _m('TILE_MISSING') + ' ' + //'</div></div>');
+                        (cfg.lookup_dril ? ' <span id="reload_dril_oblasti" onclick="localStorage.removeItem(\'is_titulka.dril.oblasti\'); location.reload();" style="cursor: pointer;" title="vymazat cache oblastí a provést reload stránky">&#x27F3;</span>' : '' ) +
+                        (cfg.config_url !== undefined
+                        ? ' <span id="reload_web_config" onclick="$.get(\''+config.config_url+'?'+Math.random().toString(36).substring(3)+'\', {}, function(data){ console.log(\'config length:\' + data.length); });" style="cursor: pointer;" title="vynutit reload konfiguračního souboru">&#x27F3;</span>'
+                        : '')
+                        + '</div></div>'
+                       );
 
   // remove life :-)
   if ( cfg.have_no_life ) {
