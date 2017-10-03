@@ -18,6 +18,10 @@
    * zobrazení čísla týdne mezi datem a časem v patičce
 */
 
+if ( window.is === undefined ) {
+    return;
+}
+
 var config = {
   // externí nastavení - odkomentovat, uvést vlastní url a zakomentovat stat. nastavení
   // url _musí_ být na ISu
@@ -114,6 +118,9 @@ function _m(m) {
 
 // záměna dvou dlaždice dle názvu
 function dlazdice_replace(nazev1, nazev2) {
+  if ( $('dlazdice').size() === 0 ) {
+      return;
+  }
   //var prvni = $('.dlazdice .row .nazev a:contains(' + nazev1 + ')').parent().parent().parent();
   var prvni = $('.dlazdice .row .nazev a').filter(function() { return $(this).text() === nazev1; }).parent().parent().parent();
   //var druhy = $('.dlazdice .row .nazev a:contains(' + nazev2 + ')').parent().parent().parent();
