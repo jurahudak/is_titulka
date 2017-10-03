@@ -245,7 +245,7 @@ function run_me(cfg) {
     );
   */
     // vlozit pred Zivot
-    $('.zivot_column').prepend('<div><div class="nazev" style="font-size: 1.5rem; margin-bottom: 1em;"><a href="/auth/diskuse/">'+_m('DISCUSSIONS')+'</a></div><div style="margin-bottom: 2em; height: 15em; overflow: auto;" id="diskuse_dlazdice"><img src="/pics/design/pracuji.gif"></div><hr /></div>');
+    $('.zivot_column').prepend('<div><div class="nazev" style="font-size: 1.5rem; margin-bottom: 1em;"><a href="/auth/diskuse/">'+_m('DISCUSSIONS')+'</a></div><div style="margin-bottom: 2em; max-height: 15em; overflow: auto;" id="diskuse_dlazdice"><img src="/pics/design/pracuji.gif"></div><hr /></div>');
 
     // zjistit diskuse
     $.get('/auth/diskuse/', {},
