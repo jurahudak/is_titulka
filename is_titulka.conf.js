@@ -31,6 +31,11 @@ var config = {
   'tiles_delete': true,
   'lookup_dril': true,
   'lookup_discussion': true,
+  'discussion_ignore': [
+      'Ptejte se Studentských poradců',
+      'Záhrobní Plkárna 3.0',
+      'Předměty',
+   ],
   'have_no_life': false,
   'tile_long_life': true,
   'have_week_number': true,
