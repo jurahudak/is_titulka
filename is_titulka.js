@@ -83,7 +83,8 @@ var config = {
 };
 
 if ( config.config_url !== undefined ) {
-  $.get(config.config_url, {}, function(data) { eval(data); run_me(config); });
+  var _url = config.config_url;
+  $.get(_url, {}, function(data) { eval(data); config.config_url = _url; run_me(config); });
 } else {
   run_me(config);
 }
