@@ -118,7 +118,7 @@ function _m(m) {
 
 // záměna dvou dlaždice dle názvu
 function dlazdice_replace(nazev1, nazev2) {
-  if ( $('dlazdice').size() === 0 ) {
+  if ( $('#dlazdice').size() === 0 ) {
       return;
   }
   //var prvni = $('.dlazdice .row .nazev a:contains(' + nazev1 + ')').parent().parent().parent();
