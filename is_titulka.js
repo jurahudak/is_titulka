@@ -189,7 +189,7 @@ function run_me(cfg) {
   var lang = is.session.get('lang');
 
   // dlaždice dle jazyka
-  var tiles_my_order = cfg.tiles_my_order[is.session.get('lang')];
+  var tiles_my_order = cfg.tiles_my_order[lang];
 
   // přerovnat (a případně promazat) dlaždice
   if ( tiles_my_order !== undefined && tiles_my_order.length > 0 ) {
