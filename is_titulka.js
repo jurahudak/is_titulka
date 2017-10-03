@@ -132,8 +132,6 @@ function dlazdice_replace(nazev1, nazev2) {
     var f_druhy = druhy.clone();
     prvni.replaceWith(f_druhy);
     druhy.replaceWith(f_prvni);
-  } else {
-      console.log( 'nenalezeno: ' + nazev1 + ' vs. ' + nazev2 + ' (' + prvni.size() + ' ' + druhy.size() + ')' );
   }
 }
 
