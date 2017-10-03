@@ -11,6 +11,7 @@ Grease/Tamper/Violent-monkey/Guerilla-scripting skript pro úpravu vzhledu titul
 * zkrácení "Života" na výšku dlaždic s vyhledáváním
 * zobrazování diskusních fór s nenulovým počtem nových příspěvků
 * zobrazit číslo týdne v patičce
+  * v rámci celého balíku nebo jako [samostatný skript](is_paticka_tyden.js)
 
 Skript byl funkční ve Firefoxu (55.0.3, Greasemonkey), Palemoon (27.4.2, Guerilla scripting), Chrome (61.0.3163.79, Tampermonkey) a Opera (47.0.2631.55, Violentmonkey), všechny Archlinux x86-64.
 
@@ -26,11 +27,23 @@ Skript žádným způsobem neovlivňuje uživatelská data v ISu, nic nemění, 
 
 ## Nastavení
 
+Nastavení lze používat statické (= uvedené přímo v samotném uživatelském skriptu) nebo na externím URL (ale v ISu).
+
+	// konfigurační hash - prázdná definici, kam se vloží statická nebo načtená konfigurace
+	var config = {
+
+### Nastavení v externím konfiguračním souboru
+
+Při zobrazení titulní stránky se načte konfigurační soubor, provede se a použijí se v něm obsažené volby.
+
+	// použít nastavení z URL - zakomentovat pro použití statické konfigurace
+	'config_url': 'https://is.muni.cz/auth/www/'+is.session.get('uco')+'/is_titulka.conf.js',
+
 ### Vlastní pořadí dlaždic
 
 Pořadí se určuje uvedením názvu dlaždice v poli odpovídajícímu použitému jazyku:
 
-	var tiles_my_order = {
+	'tiles_my_order': {
 		"cs":[
 			'Vývoj','Systém','Lidé',
 			'Soubory','Pošta','Nástroje',
@@ -46,7 +59,7 @@ Pořadí se určuje uvedením názvu dlaždice v poli odpovídajícímu použit�
 			'Soubory','Pošta','Nástroje',
 			'Publikácie','Karty','Študijné',
 		],
-	}[is.session.get('lang')];
+	},
 
 Nenalezená dlaždice, např. s překlepem, je ignorována.
 
@@ -54,61 +67,43 @@ Nenalezená dlaždice, např. s překlepem, je ignorována.
 
 Mazání zbývajících dlaždit lze zapnout
 
-	var tiles_delete = true;
-
-nebo vypnout
-
-	var tiles_delete = false;
+	'tiles_delete': true, // false
 
 ### Oblasti drilu
 
 Zapnout vytváření první pseudo-dlaždice s oblastmi Drilu
 
-	var lookup_dril = true;
-
-nebo nezapínat
-
-	var lookup_dril = false;
+	'lookup_dril': true, // false
 
 ### Nezobrazovaní pravého sloupce se Životem
 
 Nesledovat Život na škole
 
-	var have_no_life = true;
-
-ponechat si zobrazování Života
-
-	var have_no_life = false;
+	'have_no_life': true, // false
 
 ### Zkrácení pravého sloupce se Životem
 
 Zkrátit sloupec Života na délku dlaždic
 
-	var tile_long_life = true;
-
-ponechat výchozí délku
-
-	var tile_long_life = false;
+	'tile_long_life': true, // false
 
 ### Zobrazování diskusních fór s nenulovým počtem nových příspěvků
 
 Zobrazovat disk. fóra
 
-	var lookup_discussion = true;
+	'lookup_discussion': true, // false
 
-nezobrazovat disk. fóra
+### Ignorování vybraných diskusních fór
 
-	var lookup_discussion = false;
+	'discussion_ignore': [
+		'název fóra',
+	],
 
 ### Zobrazování čísla týdne v patičce
 
 Zobrazovat číslo týdne mezi datem a časem v patičce
 
-	var have_week_number = true;
-
-nezobrazovat číslo týdne
-
-	var have_week_number = false;
+	'have_week_number': true, // false
 
 ## Co zlepšit
 

@@ -4,7 +4,7 @@
 // @include     https://is.*.cz/auth/
 // @include     https://is.*.cz/auth/*
 // @include     https://is.*.cz/auth/?*
-// @version     3.1.1
+// @version     3.3
 // @grant       none
 // ==/UserScript==
 
