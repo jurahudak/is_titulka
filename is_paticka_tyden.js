@@ -5,11 +5,16 @@
 // @description  Week number in footer
 // @author       Juraj Hudak
 // @include      https://is.muni.cz/auth/
+// @include      https://is.muni.cz/auth/*
 // @grant        none
 // ==/UserScript==
 
 (function() {
     'use strict';
+
+    if ( window.is === undefined ) {
+        return;
+    }
 
     Date.prototype.getWeek = function() {
       var onejan = new Date(this.getFullYear(),0,1);
