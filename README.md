@@ -69,6 +69,22 @@ Mazání zbývajících dlaždit lze zapnout
 
 	'tiles_delete': true, // false
 
+### Odebírání a přidávání odkazů uvnitř dlaždic
+
+Přidávání odkazu umožňuje nahradit řetězec `%uco%` za uživatelovo učo.
+
+	'tiles_link_remove':{
+		'cs': {
+			'Lidé': [ 'Skupiny osob', ],
+			'Systém': [ 'Podnětovna pro SO' ],
+		},
+	},
+	'tiles_link_add':{
+		'cs': {
+			'Lidé': [ '<a href="/auth/osoba/%uco%">Moje os. stránka</a>' ],
+		},
+	},
+
 ### Oblasti drilu
 
 Zapnout vytváření první pseudo-dlaždice s oblastmi Drilu
