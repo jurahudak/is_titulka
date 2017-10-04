@@ -19,10 +19,11 @@
 */
 
 if ( window.is === undefined ) {
+console.log('on is');
     return;
 }
 
-var config = {
+let config = {
   // externí nastavení - odkomentovat, uvést vlastní url a zakomentovat stat. nastavení
   // url _musí_ být na ISu
   'config_url': '/auth/www/'+is.session.get('uco')+'/is_titulka.conf.js',
@@ -84,8 +85,10 @@ var config = {
 
 if ( config.config_url !== undefined ) {
   var _url = config.config_url;
+console.log('config from url: '+config.config_url);
   $.get(_url, {}, function(data) { eval(data); config.config_url = _url; run_me(config); });
 } else {
+console.log('config from this script');
   run_me(config);
 }
 
@@ -120,6 +123,7 @@ function _m(m) {
 // záměna dvou dlaždice dle názvu
 function dlazdice_replace(nazev1, nazev2) {
   if ( $('#dlazdice').size() === 0 ) {
+console.log('no #dlazdice');
       return;
   }
   //var prvni = $('.dlazdice .row .nazev a:contains(' + nazev1 + ')').parent().parent().parent();
@@ -191,6 +195,7 @@ function dril_load_ajax() {
             localStorage.setItem('is_titulka.dril.oblasti', JSON.stringify({'timestamp':(new Date).getTime(), 'oblasti':pole}));
             // pres vsechny oblasti zjistit nazev, id a pocet slovicek ke drilovani a vsechno vykreslit
             for ( var i in pole ) {
+              if ( typeof(pole[i]) !== 'string' ) continue;
               var oblast_href = pole[i].match(/href="(.*)"/)[1];
               var oblast_id = pole[i].match(/oblast_id=(\d+)/)[1];
               var oblast_nazev = pole[i].match(/<b>(.*)<\/b>/)[1];
@@ -251,6 +256,7 @@ if ( localStorage.getItem('is_titulka.dril.oblasti') !== null ) {
   lsdata = JSON.parse(localStorage.getItem('is_titulka.dril.oblasti'));
   // data starsi nez 7 dnu
   if ( lsdata.timestamp + 7*86400 > (new Date).getTime() ) {
+console.log('dril ajax load');
     provest_ajax = false;
   }
 }
@@ -261,6 +267,7 @@ if ( provest_ajax ) {
   var pole = lsdata.oblasti;
   $('#dril_dlazdice').html(''); // zrusit tocici kolecko ajaxu
   for ( var i in pole ) {
+    if ( typeof(pole[i]) !== 'string' ) continue;
     var oblast_href = pole[i].match(/href="(.*)"/)[1];
     var oblast_id = pole[i].match(/oblast_id=(\d+)/)[1];
     var oblast_nazev = pole[i].match(/<b>(.*)<\/b>/)[1];
@@ -285,6 +292,7 @@ if ( provest_ajax ) {
           $('#diskuse_dlazdice').html('');
           var pole = data.match(/<li>(.*?\d+.*?(:?nov|new mess).*?)<\/li>/ig);
           for ( var i in pole ) {
+            if ( typeof(pole[i]) !== 'string' ) continue;
             var nazev = (pole[i].match(/<b>(.*?)<\/b>/i) || ['',''])[1];
             if ( cfg.discussion_ignore !== undefined && cfg.discussion_ignore.indexOf( nazev ) >= 0 ) {
               continue;
