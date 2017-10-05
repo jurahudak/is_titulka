@@ -236,7 +236,15 @@ function run_me(cfg) {
     // pres nazvy
     for ( var nazev in cfg.tiles_link_add[lang] ) {
       $('.dlazdice .row').has('.nazev a:contains("' + nazev + '")').find('.odkazy').append(
-        cfg.tiles_link_add[lang][nazev].map(function(item){ return '<li>'+item.replace('%uco%', uco)+'</li>'; })
+        cfg.tiles_link_add[lang][nazev].map(function(item){
+            var _out = '';
+            if ( typeof(item) === 'string' ) {
+              _out = item.replace('%uco%', uco);
+            } else if ( typeof(item) === 'object' ) {
+              _out = '<a href="'+item[1].replace('%uco%', uco)+'">'+item[0]+'</a>';
+            }
+            return '<li>'+_out+'</li>';
+          })
       );
     }
   }
