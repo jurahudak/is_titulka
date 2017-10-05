@@ -23,7 +23,7 @@ console.log('on is');
     return;
 }
 
-let config = {
+var config = {
   // externí nastavení - odkomentovat, uvést vlastní url a zakomentovat stat. nastavení
   // url _musí_ být na ISu
   'config_url': '/auth/www/'+is.session.get('uco')+'/is_titulka.conf.js',
