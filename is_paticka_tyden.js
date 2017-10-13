@@ -20,7 +20,7 @@
       var onejan = new Date(this.getFullYear(),0,1);
       return Math.ceil((((this - onejan) / 86400000) + onejan.getDay()+1)/7);
     };
-    $('.footer_datum span').prepend('(<a href="/auth/rozvrh/sl_tyden" title="'+_m('WEEK_OF_YEAR')+'">'+(new Date()).getWeek()+'.</a>) ');
+    $('.footer_datum span:last').prepend('(<a href="/auth/rozvrh/sl_tyden" title="'+_m('WEEK_OF_YEAR')+'">'+(new Date()).getWeek()+'.</a>) ');
 })();
 
 function _m(msg) {
