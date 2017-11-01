@@ -308,7 +308,7 @@ if ( provest_ajax ) {
             var url = //'/auth'+(
                 (pole[i].match(/href="([^"]+)"/i) || ['',''])[1];//.match(/(\/diskuse\/.*/))[1];
             url = url.replace('../','/auth/');
-            var pocet = parseInt( (pole[i].match(/<font[^>]*>.*?(\d+)/i) || ['',0])[1] );
+            var pocet = parseInt( (pole[i].match(/<font[^>]*>[^,]*?(\d+)/i) || ['',0])[1] );
             // pouze ty diskuse s nenulovym poctem novych
             if ( pocet > 0 ) {
               $('#diskuse_dlazdice').append( '<a href="'+url+'">'+nazev+'</a> <b>('+pocet+')</b><br />' );
