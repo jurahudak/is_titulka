@@ -191,7 +191,7 @@ function dril_load_ajax() {
           $('#dril_dlazdice').html('');
           // vytahnout vsechny oblasti ke drilovani
           var pole = data.match(/(href=".*oblast_id=\d+.*<b>.*?<\/b>)/g);
-          if ( pole.length > 0 ) {
+          if ( pole && pole.length > 0 ) {
             localStorage.setItem('is_titulka.dril.oblasti', JSON.stringify({'timestamp':(new Date).getTime(), 'oblasti':pole}));
             // pres vsechny oblasti zjistit nazev, id a pocet slovicek ke drilovani a vsechno vykreslit
             for ( var i in pole ) {
