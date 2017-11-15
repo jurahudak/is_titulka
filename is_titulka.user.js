@@ -19,7 +19,7 @@
 */
 
 if ( window.is === undefined ) {
-console.log('on is');
+console.log('no is');
     return;
 }
 
