@@ -123,6 +123,6 @@ Zobrazovat číslo týdne mezi datem a časem v patičce
 
 ## Co zlepšit
 
-* pro oblasti Drilu využívat lokální úložiště (localStorage) a ušetřit tak při každém zobrazení AJAXový GET na titlku Drilu, ale je potřeba nějak zajistit aktualizaci při aktivaci nové nebo deaktivaci oblasti, resp. periodicky aktualizovat při zobrazení
-* diskusní fóra umožnit volitelně zobrazit jako dlaždici před/za drilem
+* <strike>pro oblasti Drilu využívat lokální úložiště (localStorage) a ušetřit tak při každém zobrazení AJAXový GET na titlku Drilu, ale je potřeba nějak zajistit aktualizaci při aktivaci nové nebo deaktivaci oblasti, resp. periodicky aktualizovat při zobrazení</strike>
+* <strike>diskusní fóra umožnit volitelně zobrazit jako dlaždici před/za drilem</strike>
 
