@@ -1,11 +1,13 @@
 // ==UserScript==
 // @name         is_paticka_tyden
 // @namespace    is_paticka
-// @version      0.1
+// @version      0.2
 // @description  Week number in footer
 // @author       Juraj Hudak
 // @include      https://is.muni.cz/auth/
 // @include      https://is.muni.cz/auth/*
+// @downloadURL https://github.com/jurahudak/is_titulka/raw/master/is_paticka_tyden.user.js
+// @updateURL https://github.com/jurahudak/is_titulka/raw/master/is_paticka_tyden.user.js
 // @grant        none
 // ==/UserScript==
 

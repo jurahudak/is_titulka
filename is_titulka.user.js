@@ -4,7 +4,9 @@
 // @include     https://is.*.cz/auth/
 // @include     https://is.*.cz/auth/*
 // @include     https://is.*.cz/auth/?*
-// @version     3.4
+// @version     3.5
+// @downloadURL https://github.com/jurahudak/is_titulka/raw/master/is_titulka.user.js
+// @updateURL https://github.com/jurahudak/is_titulka/raw/master/is_titulka.user.js
 // @grant       none
 // ==/UserScript==
 
