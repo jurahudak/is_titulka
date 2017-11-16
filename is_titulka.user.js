@@ -88,7 +88,15 @@ var config = {
 if ( config.config_url !== undefined ) {
   var _url = config.config_url;
 console.log('config from url: '+config.config_url);
-  $.get(_url, {}, function(data) { eval(data); config.config_url = _url; run_me(config); });
+  $.get(_url, {}, function(data) {
+      if ( !data.match('^\s*<') ) {
+        eval(data);
+        config.config_url = _url;
+        run_me(config);
+      } else {
+        console.log('Bad response for ' + config.config_url + "\n" + data.substr(1,20) + '...');
+      }
+  });
 } else {
 console.log('config from this script');
   run_me(config);
