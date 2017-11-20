@@ -13,7 +13,7 @@ Grease/Tamper/Violent-monkey/Guerilla-scripting skript pro úpravu vzhledu titul
 * zobrazit číslo týdne v patičce
   * v rámci celého balíku nebo jako [samostatný skript](is_paticka_tyden.js)
 
-Skript byl funkční ve Firefoxu (55.0.3, Greasemonkey), Palemoon (27.4.2, Guerilla scripting), Chrome (61.0.3163.79, Tampermonkey) a Opera (47.0.2631.55, Violentmonkey), všechny Archlinux x86-64.
+Skript byl funkční ve Firefoxu (55.0.3, <strike title="GM změnil strukturu a zatím jsem neměl čas a sílu na úpravu">Greasemonkey</strike>Tampermonkey), Palemoon (27.4.2, Guerilla scripting), Chrome (61.0.3163.79, Tampermonkey) a Opera (47.0.2631.55, Violentmonkey), všechny Archlinux x86-64.
 
 
 ## Použití
