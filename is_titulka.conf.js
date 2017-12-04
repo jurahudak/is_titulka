@@ -39,6 +39,8 @@ var config = {
   'have_no_life': false,
   'tile_long_life': true,
   'have_week_number': true,
+  // www/$UCO/
+  'pers-prac-doba': 'moje_nastaveni/pers-prac-doba.txt',
 };
 
 // vim: tabstop=2 shiftwidth=2 softtabstop=2 expandtab

@@ -4,7 +4,7 @@
 // @include     https://is.*.cz/auth/
 // @include     https://is.*.cz/auth/*
 // @include     https://is.*.cz/auth/?*
-// @version     3.5
+// @version     3.6
 // @downloadURL https://github.com/jurahudak/is_titulka/raw/master/is_titulka.user.js
 // @updateURL https://github.com/jurahudak/is_titulka/raw/master/is_titulka.user.js
 // @grant       none
@@ -82,6 +82,9 @@ var config = {
 
     // číslo týdne
     'have_week_number': true,
+
+    // soubor, do kterého se ukládá datum a čas posledního tisku měsíčního výkazu práce
+    'pers-prac-doba': 'moje_nastaveni/pers-prac-doba.txt',
 */ // staticka konfigurace
 };
 
@@ -218,10 +221,68 @@ function dril_load_ajax() {
     ); // get
 }
 
+function get_last_pers_prac_doba(in_uco, in_url) {
+    var dnes = new Date();
+    var url = '';
+    if ( in_url.substr(0,1) === '/' ) {
+        url = in_url+'?'+dnes.toISOString();
+    } else {
+        url = in_url ? '/auth/www/'+in_uco+'/'+in_url+'?'+dnes.toISOString() : '/auth/'+'/www/'+in_uco+'/moje_nastaveni/pers-prac-doba.txt?'+dnes.toISOString();
+    }
+    //url += dnes.toISOString();
+    $.get( url, {}, function(data) {
+        var last_tisk = new Date(data);
+        var minm = new Date();
+        minm.setMonth(minm.getMonth()-1);
+        // tisklo se tento nebo minuly mesic
+        if ( last_tisk.toISOString().substr(0,7) !== minm.toISOString().substr(0,7) ) {
+            console.log( 'za minuly mesic nebyl vytisten vykaz prace!' );
+            var prac_obdobi = minm.toISOString().substr(0,7);
+            $('#dlazdice').prepend(
+                '<div id="row_prac_vykaz_warn" class="row" style="padding-left: 2em;"><div class="column"><div class="dlazdice" style="text-align: left; height: 1em;"><div class="durazne" id="prac_vykaz_warn" style="text-align: center;">Ještě nebyl vytištěn pracovní výkaz za <u><a href="/auth/pers/prac_doba?obdobi_evidence='+prac_obdobi+'">'+prac_obdobi+'</a></u>.</div></div></div></div>'
+            );
+        }
+      }
+    );
+}
+
+
+function set_file_content(file_url, in_text) {
+    // nazev a jmeno souboru vyderivovat z url
+    var fn = file_url.replace(/^.*\//, '');
+console.log( 'set_file_content('+file_url+', '+in_text+') :: fn=' + fn );
+    $.post(
+        '/auth/dok/editor',
+        {
+            furl_1: file_url,
+            nazev_1: fn,
+            jmeno_1: fn,
+            text_1: in_text,
+            posledni_editor_1: 'text',
+            ulozit_1: 'Uložit'
+        },
+        function(data) {
+            // mozna zde overit, ze se skutecne ulozilo
+//        	console.log( 'asi hotovo ('+data.length+')' );
+        }
+    );
+} // set_file_content
+
 // hlavni funkce
 function run_me(cfg) {
   var uco = is.session.get('uco');
   var lang = is.session.get('lang');
+
+  if ( uco && cfg.pers_prac_doba ) {
+    get_last_pers_prac_doba(uco, cfg.pers_prac_doba);
+    if ( window.location.toString().match(/pers\/prac_doba/) ) {
+      // my_url jako url ve www/$UCO/ + z nastaveni...
+      var my_url = '/www/'+uco+'/'+cfg.pers_prac_doba;
+      // handlery tisku
+      $('input[name="tisk_print"]').submit( function(evt) { var v = $('input[name="obdobi_evidence"]').val(); set_file_content( my_url, v ); return true; });
+      $('input[name="tisk_download"]').on('click', function(evt) { var v = $('input[name="obdobi_evidence"]').val(); set_file_content( my_url, v ); return true; });
+    }
+  }
 
   // dlaždice dle jazyka
   var tiles_my_order = cfg.tiles_my_order[lang];
