@@ -302,7 +302,24 @@ function run_me(cfg) {
       }
     }
   }
-  // pridat
+  // pridat na zacatek
+  if ( cfg.tiles_link_prepend[lang] ) {
+    // pres nazvy
+    for ( var nazev in cfg.tiles_link_prepend[lang] ) {
+      $('.dlazdice .row').has('.nazev a:contains("' + nazev + '")').find('.odkazy').prepend(
+        cfg.tiles_link_prepend[lang][nazev].map(function(item){
+            var _out = '';
+            if ( typeof(item) === 'string' ) {
+              _out = item.replace('%uco%', uco);
+            } else if ( typeof(item) === 'object' ) {
+              _out = '<a href="'+item[1].replace('%uco%', uco)+'">'+item[0]+'</a>';
+            }
+            return '<li>'+_out+'</li>';
+          })
+      );
+    }
+  }
+  // pripojit na konec
   if ( cfg.tiles_link_add[lang] ) {
     // pres nazvy
     for ( var nazev in cfg.tiles_link_add[lang] ) {
