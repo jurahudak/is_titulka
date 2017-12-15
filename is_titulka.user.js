@@ -303,7 +303,7 @@ function run_me(cfg) {
     }
   }
   // pridat na zacatek
-  if ( cfg.tiles_link_prepend[lang] ) {
+  if ( cfg.tiles_link_prepend && cfg.tiles_link_prepend[lang] ) {
     // pres nazvy
     for ( var nazev in cfg.tiles_link_prepend[lang] ) {
       $('.dlazdice .row').has('.nazev a:contains("' + nazev + '")').find('.odkazy').prepend(
