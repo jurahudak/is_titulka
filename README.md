@@ -121,6 +121,19 @@ Zobrazovat číslo týdne mezi datem a časem v patičce
 
 	'have_week_number': true, // false
 
+### Upozornění na nevyplněný/nevytištěný pracovní výkaz
+
+Zobrazovat odkaz na tisk pracovního výkazu.
+
+	'pers-prac-doba': 'moje_nastaveni/pers-prac-doba.txt',
+
+Hodnotou klíče je relativní cesta k existujícímu souboru ve "www"
+stromu uživatele. `/www/učo/moje_nastaveni/pers-prac-doba.txt`.
+User script se pokusí navázat handlery na stažení a tisk výkazu a při
+stažení/tisku do tohoto souboru poznačí období (YYYY-MM), za který
+se naposledy tisklo. Na titulce se pak tento soubor čte a porovnává
+s aktuálním (předchozím) období.
+
 ## Co zlepšit
 
 * <strike>pro oblasti Drilu využívat lokální úložiště (localStorage) a ušetřit tak při každém zobrazení AJAXový GET na titlku Drilu, ale je potřeba nějak zajistit aktualizaci při aktivaci nové nebo deaktivaci oblasti, resp. periodicky aktualizovat při zobrazení</strike>
