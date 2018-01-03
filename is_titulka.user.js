@@ -236,11 +236,24 @@ function get_last_pers_prac_doba(in_uco, in_url) {
         minm.setMonth(minm.getMonth()-1);
         // tisklo se tento nebo minuly mesic
         if ( last_tisk.toISOString().substr(0,7) !== minm.toISOString().substr(0,7) ) {
-            console.log( 'za minuly mesic nebyl vytisten vykaz prace!' );
             var prac_obdobi = minm.toISOString().substr(0,7);
-            $('#dlazdice').prepend(
-                '<div id="row_prac_vykaz_warn" class="row" style="padding-left: 2em;"><div class="column"><div class="dlazdice" style="text-align: left; height: 1em;"><div class="durazne" id="prac_vykaz_warn" style="text-align: center;">Ještě nebyl vytištěn pracovní výkaz za <u><a href="/auth/pers/prac_doba?obdobi_evidence='+prac_obdobi+'">'+prac_obdobi+'</a></u>.</div></div></div></div>'
-            );
+            $.get( '/auth/pers/prac_doba?obdobi_evidence='+prac_obdobi, {}, function(data2) {
+                var vykaz_class = "";
+                var vykaz_dopln = "";
+                if ( data2.match(/Pro tento měsíc není tisk docházky dostupný/) ) {
+                    console.log( 'za minuly mesic nebyl vytisten vykaz, ale jeste ho nelze tisknout' );
+                    vykaz_class = "";
+                    vykaz_dopln = ", ale ještě ho není možné tisknout";
+                } else {
+                    console.log( 'za minuly mesic nebyl vytisten vykaz prace!' );
+                    vykaz_class = "durazne";
+                }
+
+                $('#dlazdice').prepend(
+                    '<div id="row_prac_vykaz_warn" class="row" style="padding-left: 2em;"><div class="column"><div class="dlazdice" style="text-align: left; height: 1em;"><div class="'+vykaz_class+'" id="prac_vykaz_warn" style="text-align: center;">Ještě nebyl vytištěn pracovní výkaz za <u><a href="/auth/pers/prac_doba?obdobi_evidence='+prac_obdobi+'">'+prac_obdobi+'</a></u>'+vykaz_dopln+'.</div></div></div></div>'
+                );
+
+            }); // function(data2) . get()
         }
       }
     );
