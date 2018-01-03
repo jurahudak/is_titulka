@@ -279,7 +279,7 @@ function run_me(cfg) {
       // my_url jako url ve www/$UCO/ + z nastaveni...
       var my_url = '/www/'+uco+'/'+cfg.pers_prac_doba;
       // handlery tisku
-      $('input[name="tisk_print"]').submit( function(evt) { var v = $('input[name="obdobi_evidence"]').val(); set_file_content( my_url, v ); return true; });
+      $('input[name="tisk_print"]').on('click', function(evt) { var v = $('input[name="obdobi_evidence"]').val(); set_file_content( my_url, v ); return true; });
       $('input[name="tisk_download"]').on('click', function(evt) { var v = $('input[name="obdobi_evidence"]').val(); set_file_content( my_url, v ); return true; });
     }
   }
